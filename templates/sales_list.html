@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Sales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form label {
+            margin-right: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de ventas</h1>
+        <form method="GET">
+            <label for="start_date">Fecha de inicio:</label>
+            <input type="date" id="start_date" name="start_date">
+            <label for="end_date">Fecha de fin:</label>
+            <input type="date" id="end_date" name="end_date">
+            <button type="submit">Filter</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ticket #</th>
+                    <th>Total</th>
+                    <th>Metodo de pago</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sale in sales %}
+                <tr>
+                    <td><a href="{% url 'sale_detail' sale.id %}">{{ sale.id }}</a></td>
+                    <td>{{ sale.total|floatformat:"2" }}</td>
+                    <td>{% if sale.paycash == 1 %} Efectivo {% else %} Tarjeta/Transferencia {% endif %}</td>
+                    <td>{{ sale.updatedate|date:"d-m-Y H:i:s" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
