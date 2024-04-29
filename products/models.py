@@ -34,3 +34,16 @@ class Producttype(models.Model):
     class Meta:
         managed = False
         db_table = 'ProductType'
+
+
+class Unit(models.Model):
+    id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
+    unitname = models.CharField(db_column='UnitName', max_length=50)  # Field name made lowercase.
+    unitcode = models.CharField(db_column='UnitCode', max_length=50)  # Field name made lowercase.
+    creationdate = models.DateTimeField(db_column='CreationDate')  # Field name made lowercase.
+    updatedate = models.DateTimeField(db_column='UpdateDate')  # Field name made lowercase.
+    active = models.TextField(db_column='Active')  # Field name made lowercase. This field type is a guess.
+
+    class Meta:
+        managed = False
+        db_table = 'Unit'
